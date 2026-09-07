@@ -193,6 +193,10 @@ GLOBAL_STYLES = """
     font-family: 'Inter', sans-serif;
 }
 
+#MainMenu, footer, header {
+    visibility: hidden;
+}
+
 .block-container {
     padding-top: 2rem;
 }
