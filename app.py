@@ -188,6 +188,10 @@ GLOBAL_STYLES = """
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600&display=swap');
 
+html, body {
+    background-color: #fcf8f3;
+}
+
 .stApp {
     background-color: #fcf8f3;
     font-family: 'Inter', sans-serif;
@@ -195,6 +199,20 @@ GLOBAL_STYLES = """
 
 #MainMenu, footer, header {
     visibility: hidden;
+}
+
+[data-testid="stAppDeployButton"],
+[data-testid="stToolbar"],
+[data-testid="stToolbarActions"],
+[data-testid="stDecoration"],
+[data-testid="stStatusWidget"],
+.stAppToolbar,
+.viewerBadge_container__1QSob,
+.viewerBadge_link__1S137,
+.viewerBadge_text__1JaDK,
+.styles_viewerBadge__1yB5_,
+.styles_terminalButton__8Ru9b {
+    display: none !important;
 }
 
 .block-container {
@@ -250,18 +268,17 @@ GLOBAL_STYLES = """
 .ff-tab-input {
     display: none;
 }
-#ff-tab-innen:checked ~ .ff-header-row label[for="ff-tab-innen"],
-#ff-tab-aussen:checked ~ .ff-header-row label[for="ff-tab-aussen"] {
+.ff-toggle-btn:has(.ff-tab-input:checked) {
     background: #1a1512 !important;
     color: #fcf8f3 !important;
 }
 .ff-panel {
     display: none;
 }
-#ff-tab-innen:checked ~ #ff-panel-innen {
+.ff-app-shell:has(#ff-tab-innen:checked) #ff-panel-innen {
     display: block;
 }
-#ff-tab-aussen:checked ~ #ff-panel-aussen {
+.ff-app-shell:has(#ff-tab-aussen:checked) #ff-panel-aussen {
     display: block;
 }
 .ff-rule {
@@ -299,14 +316,10 @@ GLOBAL_STYLES = """
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
         gap: 0;
-        margin: 0 -1rem;
     }
     .ff-slide {
         flex: 0 0 100%;
         scroll-snap-align: start;
-        scroll-margin-left: 1rem;
-        padding: 0 1rem;
-        box-sizing: border-box;
     }
 }
 
@@ -449,14 +462,16 @@ def main():
 
     st.markdown(
         '<div class="ff-app-shell">'
-        '<input type="radio" name="ff-tab" id="ff-tab-innen" class="ff-tab-input" checked>'
-        '<input type="radio" name="ff-tab" id="ff-tab-aussen" class="ff-tab-input">'
         '<div class="ff-header-row">'
         f'<div><div class="ff-date">{german_date_label()}</div>'
         '<div class="ff-header">Franzis Newsfeed</div></div>'
         '<div class="ff-toggle">'
-        '<label for="ff-tab-innen" class="ff-toggle-btn">Innenpolitik</label>'
-        '<label for="ff-tab-aussen" class="ff-toggle-btn">Außenpolitik</label>'
+        '<label class="ff-toggle-btn">'
+        '<input type="radio" name="ff-tab" id="ff-tab-innen" class="ff-tab-input" checked>'
+        "Innenpolitik</label>"
+        '<label class="ff-toggle-btn">'
+        '<input type="radio" name="ff-tab" id="ff-tab-aussen" class="ff-tab-input">'
+        "Außenpolitik</label>"
         "</div>"
         "</div>"
         '<hr class="ff-rule">'
